@@ -7,6 +7,7 @@ import com.upgrad.ecommerce.utils.NotFoundException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,6 +60,8 @@ public class ProductService {
         productDTO.setManufacturer(product.getManufacturer());
         productDTO.setAvailableItems(product.getAvailableItems());
         productDTO.setImageUrl(product.getImageUrl());
+        productDTO.setDateCreated(product.getDateCreated());
+        productDTO.setLastUpdated(product.getLastUpdated());
         return productDTO;
     }
 
@@ -70,6 +73,10 @@ public class ProductService {
         product.setManufacturer(productDTO.getManufacturer());
         product.setAvailableItems(productDTO.getAvailableItems());
         product.setImageUrl(productDTO.getImageUrl());
+        if(productDTO.getId() == null) {
+            product.setDateCreated(OffsetDateTime.now());
+        }
+        product.setLastUpdated(OffsetDateTime.now());
         return product;
     }
 

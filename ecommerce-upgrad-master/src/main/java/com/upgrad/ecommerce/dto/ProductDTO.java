@@ -1,9 +1,12 @@
 package com.upgrad.ecommerce.dto;
 
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.OffsetDateTime;
 
 
 @Data
@@ -33,5 +36,9 @@ public class ProductDTO {
 
     @Size(max = 255)
     private String imageUrl;
+
+    private OffsetDateTime dateCreated;
+
+    private OffsetDateTime lastUpdated;
 
 }
