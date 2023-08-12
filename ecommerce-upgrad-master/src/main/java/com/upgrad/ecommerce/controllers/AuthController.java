@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -59,8 +60,16 @@ public class AuthController {
 
         String token = jwtUtils.generateTokenFromUsername(userDetails.getEmail());
 
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(item -> item.getAuthority())
+                .collect(Collectors.toList());
+
         Map<Object, Object> model = new HashMap<>();
         model.put("token", token);
+        model.put("roles", roles);
+        model.put("userId", userDetails.getId());
+        model.put("userName", userDetails.getUsername());
+        model.put("email", userDetails.getEmail());
         return ok(model);
 
 //        List<String> roles = userDetails.getAuthorities().stream()
